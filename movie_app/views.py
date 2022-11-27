@@ -17,9 +17,9 @@ def director(request, id):
         director_one = Director.objects.get(id=id)
     except Director.DoesNotExist:
         return Response(data={'Director not find'})
-    if request.method == 'GET':
-        data = DirectorSerialazers(director_one).data
-        return Response(data=data)
+        if request.method == 'GET':
+            serializer = DirectorSerialazers(director_one)
+        return Response(data=serializer.data)
 
 
 @api_view(['GET'])

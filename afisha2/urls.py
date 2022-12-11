@@ -21,5 +21,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/director/', views.directors_views),
     path('api/v1/directors/', views.test),
-    path('/api/v1/directors/<int:id>/', views.director),
+    path('api/v1/directors/<int:id>/', views.director),
+    path('api/v1/movies/', views.movie_list_view),
+    path('api/v1/movies/<int:id>/', views.movie),
+    path('api/v1/reviews/', views.review_list_view),
+    path('api/v1/reviews/<int:id>/', views.review),
 ]

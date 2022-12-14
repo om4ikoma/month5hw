@@ -14,16 +14,26 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from movie_app import views
-
+from . import swagger
+LIST_CREATE = {
+    'get': 'list', 'post': 'create'
+}
+ITEM_UPDATE_DELETE = {
+    'get': 'retrieve', 'put': 'update', 'delete': 'destroy'
+}
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/director/', views.directors_views),
-    path('api/v1/directors/', views.test),
-    path('api/v1/directors/<int:id>/', views.director),
-    path('api/v1/movies/', views.movie_list_view),
-    path('api/v1/movies/<int:id>/', views.movie),
-    path('api/v1/reviews/', views.review_list_view),
-    path('api/v1/reviews/<int:id>/', views.review),
+    path('api/v1/movie_CBV', views.MovieListCreatefAPIView.as_view()),
+    path('api/v1/movie_CBV/<int:id>', views.MovieItemUpdateDeleteAPIView.as_view()),
+    path('api/v1/movie_CBV', views.ModelViewSet.as_view(LIST_CREATE)),
+    path('api/v1/movie_CBV/<int:id>', views.ModelViewSet.as_view(ITEM_UPDATE_DELETE)),
+    path('api/v1/director_CBV', views.DirectorListCreatefAPIView.as_view()),
+    path('api/v1/director_CBV/<int:id>', views.DirectorItemUpdateDeleteAPIView.as_view()),
+    path('api/v1/review_CBV', views.ReviewListCreatefAPIView.as_view()),
+    path('api/v1/review_CBV/<int:id>', views.ModelViewSet.as_view(ITEM_UPDATE_DELETE)),
+    path('api/v1/users', include('users/urls'))
 ]
+
+urlpatterns += swagger.urlpatterns

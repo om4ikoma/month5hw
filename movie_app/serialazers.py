@@ -4,6 +4,22 @@ from django.contrib.auth.models import User
 from rest_framework.exceptions import ValidationError
 
 
+class MovieCBVSirealazer(serializers.ModelSerializer):
+    class Meta:
+        model = Movie
+        fields = '__all__'
+
+class DirectorCBVSirealazer(serializers.ModelSerializer):
+    class Meta:
+        model = Director
+        fields = '__all__'
+
+class ReviewCBVSirealazer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = '__all__'
+
+
 class UserSirealazers(serializers.ModelSerializer):
     class Meta:
         model = User
